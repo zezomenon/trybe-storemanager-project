@@ -108,7 +108,7 @@ Você deve utilizar o banco MongoDB para a gestão de dados. Além disso, a API 
 
 ## Data de Entrega
 
-  - Serão `X` dias de projeto.
+  - Serão `2` dias de projeto.
   - Data de entrega para avaliação final do projeto: `21/04/2021 - 14:00h`.
 
 ---
