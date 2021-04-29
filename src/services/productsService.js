@@ -1,5 +1,10 @@
 const { StatusCodes } = require('http-status-codes');
-const { addProduct, productNameExist } = require('../models');
+const { 
+  addProduct,
+  productNameExist,
+  getProducts,
+  getProductsById,
+} = require('../models');
 
 const nameProductCheck = async (name) => {
   const foundProductName = await productNameExist(name);
@@ -7,6 +12,14 @@ const nameProductCheck = async (name) => {
     code: 'invalid_data',
     message: 'Product already exists',
     status: StatusCodes.UNPROCESSABLE_ENTITY
+  });
+};
+
+const productExist = async (result) => {
+  if (result === null) throw ({
+    code: 'invalid_data',
+    message: 'Wrong id format',
+    status: StatusCodes.UNPROCESSABLE_ENTITY,
   });
 };
 
@@ -38,6 +51,19 @@ const createProduct = async (name, quantity) => {
   return result;
 };
 
+const getAllProducts = async () => {
+  const result = await getProducts();
+  return result;
+};
+
+const getProductById = async (id) => {
+  const result = await getProductsById(id);
+  await productExist(result);
+  return result;
+};
+
 module.exports = {
   createProduct,
+  getAllProducts,
+  getProductById,
 };
