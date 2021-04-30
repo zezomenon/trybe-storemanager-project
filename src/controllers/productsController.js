@@ -3,6 +3,7 @@ const {
   getAllProducts,
   getProductById,
   updateProductById,
+  deleteProductById,
 } = require('../services');
 const { StatusCodes } = require('http-status-codes');
 
@@ -66,9 +67,26 @@ const updateProductsById = async (req, res) => {
   }
 };
 
+const deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await deleteProductById(id);
+    await res.status(StatusCodes.OK).json(result);
+  } catch (error) {
+    const { status, code, message } = error;
+    await res.status(status).json({
+      err: {
+        code,
+        message,
+      }
+    });
+  }
+};
+
 module.exports = {
   createProducts,
   getProducts,
   getProductsById,
   updateProductsById,
+  deleteProduct,
 };

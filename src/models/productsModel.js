@@ -47,8 +47,19 @@ const updateProduct = async (id, name, quantity) =>
         }
       }
     );
-    // console.log({ _id: id, name, quantity });
     return { _id: id, name, quantity };
+  });
+
+const deleteProductsById = async (id) =>
+  connection().then(async (db) => {
+    await db.collection('products').deleteOne(
+      {
+        _id: ObjectId(id),
+      }
+    );
+    return true;
+  }).catch(async () => {
+    return null;
   });
 
 module.exports = {
@@ -57,4 +68,5 @@ module.exports = {
   getProducts,
   getProductsById,
   updateProduct,
+  deleteProductsById,
 };

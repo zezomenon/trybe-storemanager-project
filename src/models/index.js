@@ -4,6 +4,7 @@ const {
   getProducts,
   getProductsById,
   updateProduct,
+  deleteProductsById,
 } = require('./productsModel');
 
 module.exports = {
@@ -12,4 +13,5 @@ module.exports = {
   getProducts,
   getProductsById,
   updateProduct,
+  deleteProductsById,
 };
