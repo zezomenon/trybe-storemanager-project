@@ -2,7 +2,8 @@ const {
   addProduct,
   productNameExist,
   getProducts,
-  getProductsById
+  getProductsById,
+  updateProduct,
 } = require('./productsModel');
 
 module.exports = {
@@ -10,4 +11,5 @@ module.exports = {
   productNameExist,
   getProducts,
   getProductsById,
+  updateProduct,
 };

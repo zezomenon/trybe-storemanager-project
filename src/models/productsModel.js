@@ -34,9 +34,27 @@ const getProductsById = async (id) =>
 // source: Anderson Alves
 // source: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Using_promises
 
+const updateProduct = async (id, name, quantity) =>
+  connection().then(async (db) => {
+    await db.collection('products').updateOne(
+      {
+        _id: ObjectId(id),
+      },
+      {
+        $set: {
+          name,
+          quantity,
+        }
+      }
+    );
+    // console.log({ _id: id, name, quantity });
+    return { _id: id, name, quantity };
+  });
+
 module.exports = {
   addProduct,
   productNameExist,
   getProducts,
   getProductsById,
+  updateProduct,
 };
