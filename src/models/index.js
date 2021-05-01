@@ -7,6 +7,11 @@ const {
   deleteProductsById,
 } = require('./productsModel');
 
+const {
+  addSale,
+  getSales,
+} = require('./salesModel');
+
 module.exports = {
   addProduct,
   productNameExist,
@@ -14,4 +19,6 @@ module.exports = {
   getProductsById,
   updateProduct,
   deleteProductsById,
+  addSale,
+  getSales
 };
