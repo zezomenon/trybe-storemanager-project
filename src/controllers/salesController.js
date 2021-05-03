@@ -1,6 +1,7 @@
 const { 
   createSale,
   getAllSales,
+  getSaleById,
 } = require('../services');
 const { StatusCodes } = require('http-status-codes');
 
@@ -31,7 +32,24 @@ const getSales = async (_req, res) => {
   }
 };
 
+const getSalesById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await getSaleById(id);
+    await res.status(StatusCodes.OK).json(result);
+  } catch (error) {
+    const { status, code, message } = error;
+    await res.status(status).json({
+      err: {
+        code,
+        message,
+      }
+    });
+  }
+};
+
 module.exports = {
   createSales,
   getSales,
+  getSalesById,
 };

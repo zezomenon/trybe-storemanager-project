@@ -2,6 +2,7 @@ const { StatusCodes } = require('http-status-codes');
 const {
   addSale,
   getSales,
+  getSalesById,
 } = require('../models');
 
 const quantitySaleCheck = (quantity) => {
@@ -21,6 +22,14 @@ const quantitySaleBeANumber = (quantity) => {
   });
 };
 
+const saleExist = async (result) => {
+  if (result === null) throw ({
+    code: 'not_found',
+    message: 'Sale not found',
+    status: StatusCodes.NOT_FOUND,
+  });
+};
+
 const createSale = async (sale) => {
   sale.forEach(({ quantity }) => {
     quantitySaleCheck(quantity);
@@ -36,7 +45,14 @@ const getAllSales = async () => {
   return result;
 };
 
+const getSaleById = async (id) => {
+  const result = await getSalesById(id);
+  await saleExist(result);
+  return result;
+};
+
 module.exports = {
   createSale,
   getAllSales,
+  getSaleById,
 };

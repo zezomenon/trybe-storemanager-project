@@ -14,7 +14,16 @@ const getSales = async () =>
     return allSales;
   });
 
+const getSalesById = async (id) =>
+  connection().then(async (db) => {
+    const sale = await db.collection('sales').findOne(ObjectId(id));
+    return sale;
+  }).catch(async () => {
+    return null;
+  });   
+
 module.exports = {
   addSale,
   getSales,
+  getSalesById,
 };

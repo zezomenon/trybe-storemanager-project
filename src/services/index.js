@@ -9,6 +9,7 @@ const {
 const {
   createSale,
   getAllSales,
+  getSaleById,
 } = require('./salesService');
 
 module.exports = {
@@ -19,4 +20,5 @@ module.exports = {
   deleteProductById,
   createSale,
   getAllSales,
+  getSaleById,
 };
