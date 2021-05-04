@@ -2,6 +2,7 @@ const {
   createSale,
   getAllSales,
   getSaleById,
+  updateSaleById,
 } = require('../services');
 const { StatusCodes } = require('http-status-codes');
 
@@ -48,8 +49,27 @@ const getSalesById = async (req, res) => {
   }
 };
 
+const updateSalesById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const sale = req.body;
+    const result = await updateSaleById(id, sale);
+    res.status(StatusCodes.OK).json(result);
+  } catch (error) {
+    const { status, code, message } = error;
+    await res.status(status).json({
+      err: {
+        code,
+        message,
+      }
+    });
+    
+  }
+};
+
 module.exports = {
   createSales,
   getSales,
   getSalesById,
+  updateSalesById,
 };

@@ -3,6 +3,7 @@ const {
   createSales,
   getSales,
   getSalesById,
+  updateSalesById,
 } = require('../controllers');
 
 const route = express.Router();
@@ -10,7 +11,7 @@ const route = express.Router();
 route.post('/sales', createSales);
 route.get('/sales', getSales);
 route.get('/sales/:id', getSalesById);
-// route.put('/sales/:id', updateProductsById);
+route.put('/sales/:id', updateSalesById);
 // route.delete('/sales/:id', deleteProduct);
 
 module.exports = route;

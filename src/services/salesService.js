@@ -3,6 +3,7 @@ const {
   addSale,
   getSales,
   getSalesById,
+  updateSale,
 } = require('../models');
 
 const quantitySaleCheck = (quantity) => {
@@ -51,8 +52,16 @@ const getSaleById = async (id) => {
   return result;
 };
 
+const updateSaleById = async (id, sale) => {
+  quantitySaleCheck(sale[0].quantity);
+  quantitySaleBeANumber(sale[0].quantity);
+  const result = await updateSale(id, sale);
+  return result;
+};
+
 module.exports = {
   createSale,
   getAllSales,
   getSaleById,
+  updateSaleById,
 };

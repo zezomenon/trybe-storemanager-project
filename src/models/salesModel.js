@@ -1,3 +1,4 @@
+const { ObjectId } = require('bson');
 const connection = require('../../config/connection');
 
 const addSale = async (sale) => 
@@ -20,10 +21,25 @@ const getSalesById = async (id) =>
     return sale;
   }).catch(async () => {
     return null;
-  });   
+  });
+
+const updateSale = async (id, sale) =>
+  connection().then(async (db) => {
+    await db.collection('sale').updateOne(
+      {
+        _id: ObjectId(id)
+      },
+      {
+        $set: { sale },
+      }
+    );
+    console.log(sale);
+    return { _id: id, itensSold: sale };
+  });
 
 module.exports = {
   addSale,
   getSales,
   getSalesById,
+  updateSale,
 };

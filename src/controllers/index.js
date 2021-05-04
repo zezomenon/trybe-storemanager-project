@@ -10,6 +10,7 @@ const {
   createSales,
   getSales,
   getSalesById,
+  updateSalesById,
 } = require('./salesController');
 
 module.exports = {
@@ -21,4 +22,5 @@ module.exports = {
   createSales,
   getSales,
   getSalesById,
+  updateSalesById,
 };
