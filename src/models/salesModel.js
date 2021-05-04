@@ -33,7 +33,6 @@ const updateSale = async (id, sale) =>
         $set: { sale },
       }
     );
-    console.log(sale);
     return { _id: id, itensSold: sale };
   });
 
