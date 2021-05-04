@@ -11,6 +11,7 @@ const {
   getAllSales,
   getSaleById,
   updateSaleById,
+  deleteSaleById,
 } = require('./salesService');
 
 module.exports = {
@@ -23,4 +24,5 @@ module.exports = {
   getAllSales,
   getSaleById,
   updateSaleById,
+  deleteSaleById,
 };

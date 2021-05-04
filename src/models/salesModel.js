@@ -27,7 +27,7 @@ const updateSale = async (id, sale) =>
   connection().then(async (db) => {
     await db.collection('sale').updateOne(
       {
-        _id: ObjectId(id)
+        _id: ObjectId(id),
       },
       {
         $set: { sale },
@@ -36,9 +36,22 @@ const updateSale = async (id, sale) =>
     return { _id: id, itensSold: sale };
   });
 
+const deleteSalesById = async (id) =>
+  connection().then(async (db) => {
+    await db.collection('sale').deleteOne(
+      {
+        _id: ObjectId(id),
+      }
+    );
+    return true;
+  }).catch(async () => {
+    return null;
+  });
+
 module.exports = {
   addSale,
   getSales,
   getSalesById,
   updateSale,
+  deleteSalesById,
 };

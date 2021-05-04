@@ -4,6 +4,7 @@ const {
   getSales,
   getSalesById,
   updateSale,
+  deleteSalesById,
 } = require('../models');
 
 const quantitySaleCheck = (quantity) => {
@@ -28,6 +29,14 @@ const saleExist = async (result) => {
     code: 'not_found',
     message: 'Sale not found',
     status: StatusCodes.NOT_FOUND,
+  });
+};
+
+const saleWrongId = async (result) => {
+  if (result === null) throw ({
+    code: 'invalid_data',
+    message: 'Wrong sale ID format',
+    status: StatusCodes.UNPROCESSABLE_ENTITY,
   });
 };
 
@@ -59,9 +68,17 @@ const updateSaleById = async (id, sale) => {
   return result;
 };
 
+const deleteSaleById = async (id) => {
+  const result = await deleteSalesById(id);
+  await saleExist(result);
+  await saleWrongId(result);
+  return;
+};
+
 module.exports = {
   createSale,
   getAllSales,
   getSaleById,
   updateSaleById,
+  deleteSaleById,
 };

@@ -3,6 +3,7 @@ const {
   getAllSales,
   getSaleById,
   updateSaleById,
+  deleteSaleById,
 } = require('../services');
 const { StatusCodes } = require('http-status-codes');
 
@@ -67,9 +68,26 @@ const updateSalesById = async (req, res) => {
   }
 };
 
+const deleteSale = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await deleteSaleById(id);
+    await res.status(StatusCodes.OK).json(result);
+  } catch (error) {
+    const { status, code, message } = error;
+    await res.status(status).json({
+      err: {
+        code,
+        message,
+      }
+    });
+  }
+};
+
 module.exports = {
   createSales,
   getSales,
   getSalesById,
   updateSalesById,
+  deleteSale,
 };
