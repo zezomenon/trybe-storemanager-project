@@ -25,7 +25,7 @@ const getSalesById = async (id) =>
 
 const updateSale = async (id, sale) =>
   connection().then(async (db) => {
-    await db.collection('sale').updateOne(
+    await db.collection('sales').updateOne(
       {
         _id: ObjectId(id),
       },
@@ -38,7 +38,7 @@ const updateSale = async (id, sale) =>
 
 const deleteSalesById = async (id) =>
   connection().then(async (db) => {
-    await db.collection('sale').deleteOne(
+    await db.collection('sales').deleteOne(
       {
         _id: ObjectId(id),
       }

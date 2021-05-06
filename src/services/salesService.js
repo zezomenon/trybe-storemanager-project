@@ -1,3 +1,4 @@
+const { ObjectId } = require('bson');
 const { StatusCodes } = require('http-status-codes');
 const {
   addSale,
@@ -32,8 +33,8 @@ const saleExist = async (result) => {
   });
 };
 
-const saleWrongId = async (result) => {
-  if (result === null) throw ({
+const saleWrongId = async (id) => {
+  if (!ObjectId.isValid(id)) throw ({
     code: 'invalid_data',
     message: 'Wrong sale ID format',
     status: StatusCodes.UNPROCESSABLE_ENTITY,
@@ -69,9 +70,10 @@ const updateSaleById = async (id, sale) => {
 };
 
 const deleteSaleById = async (id) => {
+  await saleWrongId(id);
   const result = await deleteSalesById(id);
+  console.log(result);
   await saleExist(result);
-  await saleWrongId(result);
   return;
 };
 

@@ -72,6 +72,7 @@ const deleteSale = async (req, res) => {
   try {
     const { id } = req.params;
     const result = await deleteSaleById(id);
+    // console.log(result);
     await res.status(StatusCodes.OK).json(result);
   } catch (error) {
     const { status, code, message } = error;
