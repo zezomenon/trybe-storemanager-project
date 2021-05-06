@@ -72,7 +72,6 @@ const updateSaleById = async (id, sale) => {
 const deleteSaleById = async (id) => {
   await saleWrongId(id);
   const result = await deleteSalesById(id);
-  console.log(result);
   await saleExist(result);
   return;
 };
