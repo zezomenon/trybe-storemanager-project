@@ -6,6 +6,8 @@ const {
   getSalesById,
   updateSale,
   deleteSalesById,
+  updateProduct,
+  getProductsById
 } = require('../models');
 
 const quantitySaleCheck = (quantity) => {
@@ -41,10 +43,37 @@ const saleWrongId = async (id) => {
   });
 };
 
+// const STOCK_PRODUCT = 0;
+let isCreateSale = false;
+
+const updateQuantity = async (sale) => {
+  for (productItem of sale) {
+    const { productId, quantity } = productItem;
+    const product = await getProductsById(productId);
+    
+    if (isCreateSale) {
+      const updateStock = {
+        name: product.name,
+        quantity: product.quantity - quantity,
+      };
+      await updateProduct(productId, updateStock.name, updateStock.quantity);
+    } else {
+      const updateStock = {
+        name: product.name,
+        quantity: product.quantity + quantity,
+      };
+      await updateProduct(productId, updateStock.name, updateStock.quantity);
+    }
+  }
+};
+// source: https://oieduardorabelo.medium.com/javascript-armadilhas-do-asyn-await-em-loops-1cdad44db7f0
+
 const createSale = async (sale) => {
+  isCreateSale = true;
   sale.forEach(({ quantity }) => {
     quantitySaleCheck(quantity);
     quantitySaleBeANumber(quantity);
+    updateQuantity(sale);
   });
   
   const result = await addSale(sale);
@@ -66,12 +95,16 @@ const updateSaleById = async (id, sale) => {
   quantitySaleCheck(sale[0].quantity);
   quantitySaleBeANumber(sale[0].quantity);
   const result = await updateSale(id, sale);
+  await updateQuantity(sale);
   return result;
 };
 
 const deleteSaleById = async (id) => {
+  isCreateSale = false;
   await saleWrongId(id);
+  const { itensSold } = await getSaleById(id);
   const result = await deleteSalesById(id);
+  await updateQuantity(itensSold);
   await saleExist(result);
   return;
 };
